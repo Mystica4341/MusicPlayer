@@ -67,7 +67,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="30dp"
             android:background="@drawable/custom_listview"
-            android:conerr_radius="50"
+            app:cornerRadius="5dp"
             android:hint="name@domain.com"
             android:paddingLeft="10dp" />
 
