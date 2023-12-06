@@ -40,13 +40,13 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 if (id == R.id.nav_home){
-                    loadFragment(new TimKiemFrag());
+                    loadFragment(new HomeFrag());
                     return true;
                 } else if (id == R.id.nav_search) {
                     loadFragment(new TimKiemFrag());
                     return true;
                 } else if (id == R.id.nav_profile) {
-                    loadFragment(new PlayFrag());
+                    loadFragment(new ProfileFrag());
                     return true;
                 } else if (id == R.id.nav_playlist) {
                     loadFragment(new ThuVienFrag());
