@@ -40,9 +40,11 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="40dp"
             android:textColor="@color/white"
+            android:background="@drawable/custom_danhsachphat"
             android:textSize="20dp"
+            android:gravity="center"
 
-            android:layout_width="match_parent"
+            android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:text="Danh sách phát" />
 
@@ -76,7 +78,7 @@
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:background="@drawable/custom_themnghesi"
-                android:drawableLeft="@drawable/addnghesi" />
+                android:drawableLeft="@drawable/icon_themnghesi" />
 
             <TextView
                 android:id="@+id/textView10"
@@ -104,11 +106,11 @@
 
                 <Button
                     android:id="@+id/btnTaoplaylist"
-                    android:layout_width="201dp"
+                    android:layout_width="200dp"
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:background="@drawable/custom_themnghesi"
-                    android:drawableLeft="@drawable/taoplaylist" />
+                    android:drawableLeft="@drawable/icon_taolist" />
 
                 <TextView
                     android:id="@+id/textView12"
