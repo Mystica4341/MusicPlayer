@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_nav);
         frameLayout = (FrameLayout) findViewById(R.id.FrameFrag);
+        loadFragment(new HomeFrag());
         addEvent();
     }
 

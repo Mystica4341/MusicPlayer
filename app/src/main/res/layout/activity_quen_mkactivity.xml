@@ -4,16 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DangKyActivity">
+    android:background="@color/black"
+    tools:context=".QuenMKActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black"
         android:orientation="vertical">
-
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,7 +19,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnBack"
+                android:id="@+id/btnBack1"
                 android:layout_width="88dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -67,69 +64,53 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tvDangNhap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp"
-            android:paddingBottom="30dp"
-            android:textSize="50sp"
-            android:textStyle="bold"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:text="Đặt lại mật khẩu"
             android:textColor="@color/white"
-            android:text="Đăng ký để bắt đầu nghe" />
-
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="30dp"
-            android:paddingBottom="10dp"
-            android:text="Tên Tài Khoản"
-            android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="50dp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/edtTenTK_dangky"
-            android:layout_width="350dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/custom_listview"
-            app:cornerRadius="5dp"
-            android:hint="TaiDong123"
-            android:paddingLeft="10dp" />
-
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/textView13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Địa chỉ email"
-            android:paddingBottom="10dp"
-            android:textStyle="bold"
-            android:textSize="20sp"
+            android:layout_margin="20dp"
+            android:textSize="15dp"
+            android:textColor="#D5D0D0"
+            android:text="Hãy nhập tên người dùng Spotify của bạn hoặc địa chỉ email mà bạn đã dùng để đăng ký. Chúng tôi sẽ gửi email cho bạn cùng tên người dùng của bạn và đường liên kết để đặt lại mật khẩu." />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:paddingLeft="30dp"/>
+            android:layout_marginLeft="20dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:text="Địa chỉ email hoặc tên người dùng" />
+
         <EditText
-            android:id="@+id/edtEmail_dangky"
-            android:layout_width="350dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
-            android:background="@drawable/custom_listview"
-            app:cornerRadius="5dp"
-            android:hint="name@domain.com"
-            android:paddingLeft="10dp" />
+            android:id="@+id/editTextText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_margin="20dp"
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:text="Địa chỉ email hoặc tên người dùng" />
 
         <Button
-            android:id="@+id/btnTiepTheo_dangky"
-            android:layout_width="300dp"
-            android:layout_height="55dp"
+            android:id="@+id/button"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:backgroundTint="#10E42C"
             android:textColor="@color/black"
-            android:textStyle="bold"
             android:textSize="20dp"
-            android:backgroundTint="#1ED660"
-            android:text="Tiếp theo" />
+            android:text="Gửi" />
     </LinearLayout>
 </RelativeLayout>
