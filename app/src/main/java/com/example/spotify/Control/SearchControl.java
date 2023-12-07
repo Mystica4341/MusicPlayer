@@ -1,5 +1,6 @@
 package com.example.spotify.Control;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class SearchControl {
         return lsMusic;
     }
 
+    @SuppressLint("SuspiciousIndentation")
     public void parseData(String string) throws JSONException {
         JSONObject object = new JSONObject(string);
         for (int i = 0; i < object.length(); i++){

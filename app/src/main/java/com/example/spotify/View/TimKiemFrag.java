@@ -1,6 +1,7 @@
 package com.example.spotify.View;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -102,6 +103,7 @@ public class TimKiemFrag extends Fragment {
                 url += keyword.toString();
                 SearchControl control = new SearchControl();
                 lsMusic = control.connectAPI(url, context);
+
 
             }
 
