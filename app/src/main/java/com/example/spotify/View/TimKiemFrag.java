@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -21,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.spotify.Control.CustomaAdapterMusic;
 import com.example.spotify.Control.MusicControl;
 import com.example.spotify.Control.SearchControl;
 import com.example.spotify.Model.Music;
@@ -40,11 +43,15 @@ public class TimKiemFrag extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    String url = "https://v1.nocodeapi.com/kyan/spotify/EQRERwEkEkghjruv/search?q=";
+    String url = "https://api.deezer.com/search?q=";
     EditText edtTim;
-
     ArrayList<Music> lsMusic = new ArrayList<>();
     RecyclerView SearchView;
+    ListView lvMusic;
+
+    CustomaAdapterMusic customaAdapterMusic;
+
+    LinearLayout lnImage;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -87,6 +94,8 @@ public class TimKiemFrag extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tim_kiem, container, false);
         edtTim = (EditText) view.findViewById(R.id.edtTimkiem);
+        lnImage = (LinearLayout) view.findViewById(R.id.linearImage);
+        lvMusic = (ListView) view.findViewById(R.id.lvMusic);
         addEvent(view.getContext(), view);
         return view;
     }
@@ -103,6 +112,11 @@ public class TimKiemFrag extends Fragment {
                 url += keyword.toString();
                 SearchControl control = new SearchControl();
                 lsMusic = control.connectAPI(url, context);
+                ViewGroup.LayoutParams lnParam = lnImage.getLayoutParams();
+                lnParam.height = 0;
+                lnImage.setLayoutParams(lnParam);
+                customaAdapterMusic = new CustomaAdapterMusic(view.getContext(), R.layout.custom_music_item, lsMusic);
+                lvMusic.setAdapter(customaAdapterMusic);
 
 
             }

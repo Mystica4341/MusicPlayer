@@ -45,28 +45,23 @@ public class SearchControl {
 
     @SuppressLint("SuspiciousIndentation")
     public void parseData(String string) throws JSONException {
+//        JSONArray jsMusic = new JSONArray(string);
         JSONObject object = new JSONObject(string);
         for (int i = 0; i < object.length(); i++){
+//            JSONObject object = jsMusic.getJSONObject(i);
             Music m = new Music();
-            if (object.has("album")){
-                JSONObject subObj1 = object.getJSONObject("albums");
-                if(subObj1.has("items")){
-                    JSONObject subObj2 = subObj1.getJSONObject("items");
-                    if (subObj2.getString("album_type").equals("single") && subObj2.getString("total_track").equals("1")){
-                        m.setName(subObj2.getString("name"));
-                        m.setId(subObj2.getString("id"));
-                        if (subObj2.has("artists")){
-                            JSONObject subObj3 = subObj2.getJSONObject("artists");
-                            if (subObj3.length() > 1){
-                                for (int y= 0; y < subObj3.length(); y++){
-                                    String holder = null;
-                                    holder += subObj3.getString("name") + " ";
-                                    m.setArtistName(holder);
-                                }
-                            } else
-                            m.setArtistName(subObj3.getString("name"));
-                        }
+            if (object.has("data")){
+                JSONArray jsonArray = object.getJSONArray("data");
+                for (int y = 0; y< jsonArray.length(); y ++){
+                    JSONObject subObj1 = jsonArray.getJSONObject(y);
+                    m.setId(subObj1.getString("id"));
+                    m.setName(subObj1.getString("title"));
+                    m.setDuration(subObj1.getString("duration"));
+                    if(subObj1.has("artist")){
+                        JSONObject subObj2 = subObj1.getJSONObject("artist");
+                        m.setArtistName(subObj2.getString("name"));
                     }
+                    m.setType(subObj1.getString("type"));
                 }
             }
             lsMusic.add(m);

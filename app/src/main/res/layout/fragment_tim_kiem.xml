@@ -49,8 +49,9 @@
             android:textSize="28dp" />
 
         <LinearLayout
+            android:id="@+id/linearImage"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="1dp"
             android:orientation="vertical">
 
 
@@ -95,6 +96,11 @@
 
             </LinearLayout>
         </LinearLayout>
+
+        <ListView
+            android:id="@+id/lvMusic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
 
     </LinearLayout>
