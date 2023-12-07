@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.example.spotify.R;
 
 public class DangNhapActivity extends AppCompatActivity {
-Button btnDangKy;
+    Button btnDangKy, btnDangNhap;
   TextView tvQuenMK;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +22,14 @@ Button btnDangKy;
         addEvent();
     }
     public void addControl(){
+        btnDangNhap= (Button) findViewById(R.id.btnDangNhap);
+        btnDangNhap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentCon3 = new Intent(DangNhapActivity.this, MainActivity.class);
+                startActivity(intentCon3);
+            }
+        });
         btnDangKy=(Button)findViewById(R.id.btnDangKy);
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,14 +1,31 @@
 package com.example.spotify.View;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.spotify.Control.MusicControl;
+import com.example.spotify.Control.SearchControl;
+import com.example.spotify.Model.Music;
 import com.example.spotify.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,6 +38,12 @@ public class TimKiemFrag extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    String url = "https://v1.nocodeapi.com/kyan/spotify/EQRERwEkEkghjruv/search?q=";
+    EditText edtTim;
+
+    ArrayList<Music> lsMusic = new ArrayList<>();
+    RecyclerView SearchView;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -61,6 +84,31 @@ public class TimKiemFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tim_kiem, container, false);
+        View view = inflater.inflate(R.layout.fragment_tim_kiem, container, false);
+        edtTim = (EditText) view.findViewById(R.id.edtTimkiem);
+        addEvent(view.getContext(), view);
+        return view;
+    }
+
+    public void addEvent(Context context, View view){
+        edtTim.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence keyword, int start, int before, int count) {
+                url += keyword.toString();
+                SearchControl control = new SearchControl();
+                lsMusic = control.connectAPI(url, context);
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 }

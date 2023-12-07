@@ -23,7 +23,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/tvTimkiem"
+            android:id="@+id/edtTimkiem"
             android:textColorHint="@color/black"
             android:background="@drawable/custom_tim_kiem"
             android:layout_marginTop="50dp"
