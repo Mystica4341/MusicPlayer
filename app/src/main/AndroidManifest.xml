@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,17 +14,21 @@
         android:theme="@style/Theme.SPOTIFY"
         tools:targetApi="31">
         <activity
-            android:name=".QuenMKActivity"
+            android:name=".View.QuenMKActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".View.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".DangKyActivity"
+            android:name=".View.DangKyActivity"
             android:exported="false" />
         <activity
-            android:name=".DangNhapActivity"
+            android:name=".View.DangNhapActivity"
             android:exported="true">
+            <meta-data android:name="com.spotify.sdk.android.authentication.redict_uri"
+                android:value="localhost"/>
+            <meta-data android:name="com.spotify.sdk.android.authentication.client_id"
+                android:value="754fdce30db44bddb6ae6acda1a46d1e"/>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
