@@ -1,0 +1,33 @@
+{
+  "playlist1": [
+    {
+      "id": "",
+      "name": "The spectre",
+      "artist": "Alan Walker",
+      "duration": "30022",
+      "musicURL": ""
+    },
+    {
+      "id": "",
+      "name": "RickRoll",
+      "artist": "Rick Astley",
+      "duration": "30222",
+      "musicURL": ""
+    }
+  ], "playlist2": [
+  {
+    "id": "",
+    "name": "Đại Lộ Đông Tây",
+    "artist": "Uyên Linh",
+    "duration": "30022",
+    "musicURL": ""
+  },
+  {
+    "id": "",
+    "name": "Whitsle",
+    "artist": "Josh Hatcherson",
+    "duration": "30222",
+    "musicURL": ""
+  }
+]
+}

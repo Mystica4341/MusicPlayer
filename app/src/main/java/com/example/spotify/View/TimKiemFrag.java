@@ -1,10 +1,13 @@
 package com.example.spotify.View;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
@@ -13,6 +16,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -98,6 +102,24 @@ public class TimKiemFrag extends Fragment {
     }
 
     public void addEvent(){
+        lvMusic.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bundle bundle = new Bundle();
+                bundle.putString("idSong", lsMusic.get(position).getId());
+                bundle.putString("nameSong", lsMusic.get(position).getName());
+                bundle.putString("artist", lsMusic.get(position).getArtistName());
+                bundle.putInt("dur", lsMusic.get(position).getDuration());
+                FragmentManager fm = getParentFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                fm.setFragmentResult("keyMain", bundle);
+                PlayFrag playFrag = new PlayFrag();
+                ft.replace(R.id.FrameFrag, playFrag).commit();
+
+
+
+            }
+        });
         edtTim.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -117,7 +139,7 @@ public class TimKiemFrag extends Fragment {
                     public void run() {
                         customaAdapterMusic = new CustomaAdapterMusic(requireContext(), R.layout.custom_music_item, lsMusic);
                         lvMusic.setAdapter(customaAdapterMusic);
-                        lsMusic = new ArrayList<>();
+//                        lsMusic = new ArrayList<>();
                     }
                 },100);
             }
@@ -126,5 +148,6 @@ public class TimKiemFrag extends Fragment {
             public void afterTextChanged(Editable s) {
             }
         });
+
     }
 }

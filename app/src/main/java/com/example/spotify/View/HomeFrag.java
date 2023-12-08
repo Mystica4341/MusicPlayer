@@ -1,12 +1,16 @@
 package com.example.spotify.View;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.spotify.R;
 
@@ -16,6 +20,8 @@ import com.example.spotify.R;
  * create an instance of this fragment.
  */
 public class HomeFrag extends Fragment {
+
+    ImageView imglmht_home;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +67,25 @@ public class HomeFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        addControl(view);
+        addEvent();
+        return view;
+    }
+
+    public void addControl(View view){
+        imglmht_home = (ImageView) view.findViewById(R.id.imglmht_home);
+    }
+
+    public void addEvent(){
+        imglmht_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getParentFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                KetQuaFrag ketQuaFrag = new KetQuaFrag();
+                ft.replace(R.id.FrameFrag, ketQuaFrag).commit();
+            }
+        });
     }
 }

@@ -46,9 +46,6 @@ public class MainActivity extends AppCompatActivity {
                 } else if (id == R.id.nav_search) {
                     loadFragment(new TimKiemFrag());
                     return true;
-                } else if (id == R.id.nav_profile) {
-                    loadFragment(new KetQuaFrag());
-                    return true;
                 } else if (id == R.id.nav_playlist) {
                     loadFragment(new ThuVienFrag());
                     return true;
@@ -58,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void loadFragment(androidx.fragment.app.Fragment
-                                     fragment)
+    public void loadFragment(androidx.fragment.app.Fragment fragment)
     {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft= fm.beginTransaction();

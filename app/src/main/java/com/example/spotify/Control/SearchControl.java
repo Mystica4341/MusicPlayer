@@ -5,12 +5,17 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.spotify.Model.Artist;
 import com.example.spotify.Model.Music;
+import com.example.spotify.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,13 +58,17 @@ public class SearchControl {
                 JSONArray jsonArray = object.getJSONArray("data");
                 for (int y = 0; y < jsonArray.length(); y++) {
                     Music m = new Music();
+                    Artist a = new Artist();
                     JSONObject subObj1 = jsonArray.getJSONObject(y);
                     m.setId(subObj1.getString("id"));
                     m.setName(subObj1.getString("title"));
                     m.setDuration(subObj1.getInt("duration"));
+                    m.setMusicURL(subObj1.getString("link"));
                     if (subObj1.has("artist")) {
                         JSONObject subObj2 = subObj1.getJSONObject("artist");
                         m.setArtistName(subObj2.getString("name"));
+                        a.setId(subObj2.getString("id"));
+                        a.setName(subObj2.getString("name"));
                     }
                     m.setType(subObj1.getString("type"));
                     lsMusic.add(m);

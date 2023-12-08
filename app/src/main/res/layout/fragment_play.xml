@@ -61,7 +61,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/tvTenBaiHat"
                     android:layout_width="350dp"
                     android:gravity="center"
                     android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/tvArtistName"
                     android:layout_width="350dp"
                     android:gravity="center"
                     android:layout_height="wrap_content"
@@ -104,13 +104,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView9"
+                    android:id="@+id/tvDurationStart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="00:00" />
 
                 <TextView
-                    android:id="@+id/textView10"
+                    android:id="@+id/tvDurationEnd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="250dp"

@@ -1,5 +1,6 @@
 package com.example.spotify.View;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +8,19 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
+import com.example.spotify.Control.CustomaAdapterMusic;
+import com.example.spotify.Control.PlaylistControl;
+import com.example.spotify.Model.Music;
 import com.example.spotify.R;
+
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +28,12 @@ import com.example.spotify.R;
  * create an instance of this fragment.
  */
 public class KetQuaFrag extends Fragment {
+
+    public ArrayList<Music> lsMusic = new ArrayList<>();
+
+    ListView lvPlaylist;
+
+    CustomaAdapterMusic customaAdapterMusic;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,8 +77,45 @@ public class KetQuaFrag extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             Bundle savedInstanceState){
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ketqua, container, false);
+        View view = inflater.inflate(R.layout.fragment_ketqua, container, false);
+        addControl(view);
+
+        try {
+            addEvent(view);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return view;
+    }
+
+    public void addControl(View view){
+        lvPlaylist = (ListView) view.findViewById(R.id.lvPlaylist);
+    }
+
+    public void addEvent(View view) throws JSONException, IOException {
+        getData("List.json", "playlist2");
+        customaAdapterMusic = new CustomaAdapterMusic(view.getContext(), R.layout.custom_music_item, lsMusic);
+        lvPlaylist.setAdapter(customaAdapterMusic);
+    }
+
+    public ArrayList<Music> getData(String url, String keyword) throws IOException, JSONException {
+        InputStream inputStream = getResources().getAssets().open(url);
+        int size = inputStream.available();
+        byte[] data = new byte[size];
+        inputStream.read(data);
+        inputStream.close();
+        String kqDoc = new String(data, "UTF-8");
+        PlaylistControl plc = new PlaylistControl();
+        lsMusic = plc.parseData(kqDoc, keyword);
+        return lsMusic;
+    }
+
+    public void writeData(){
+
     }
 }
