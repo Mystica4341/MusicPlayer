@@ -185,7 +185,6 @@ public class HomeFrag extends Fragment {
             public void onClick(View v) {
                 String urlMaroon = url + "Maroon 5";
                 connectAPI(urlMaroon);
-                lsMusic = new ArrayList<>();
                 KetQuaFrag ketQuaFrag = new KetQuaFrag();
                 FragmentManager fm = getParentFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
@@ -197,7 +196,6 @@ public class HomeFrag extends Fragment {
             public void onClick(View v) {
                 String urlAlan = url + "Alan Walker";
                 connectAPI(urlAlan);
-                lsMusic = new ArrayList<>();
                 KetQuaFrag ketQuaFrag = new KetQuaFrag();
                 FragmentManager fm = getParentFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
@@ -219,6 +217,7 @@ public class HomeFrag extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(requireContext(), "fail", Toast.LENGTH_SHORT).show();
             }
         });
         RequestQueue queue = Volley.newRequestQueue(requireContext());

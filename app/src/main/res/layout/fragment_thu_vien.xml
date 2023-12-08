@@ -11,37 +11,19 @@
         android:background="#191818"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_marginTop="7dp"
-                android:layout_width="330dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-
-                android:text=" Thư viện"
-
-                android:textColor="@color/white"
-                android:textSize="35dp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
         <TextView
-            android:id="@+id/textView5"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="40dp"
-            android:textColor="@color/white"
-            android:background="@drawable/custom_danhsachphat"
-            android:textSize="20dp"
-            android:gravity="center"
-
-            android:layout_width="175dp"
+            android:id="@+id/textView4"
+            android:layout_width="330dp"
             android:layout_height="wrap_content"
-            android:text="Danh sách phát" />
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="50dp"
+            android:gravity="left"
+            android:text=" Thư viện"
+            android:textColor="@color/white"
+            android:textSize="35dp"
+            android:textStyle="bold" />
+
 
     </LinearLayout>
 
@@ -63,6 +45,7 @@
             android:textSize="25dp" />
 
         <LinearLayout
+            android:id="@+id/lnFavSong"
             android:layout_width="match_parent"
             android:layout_height="108dp"
             android:orientation="horizontal">
@@ -72,8 +55,7 @@
                 android:layout_width="200dp"
                 android:layout_height="100dp"
                 android:layout_weight="1"
-                android:background="@drawable/custom_themnghesi"
-                android:drawableLeft="@drawable/icon_themnghesi" />
+                android:background="@drawable/custom_themnghesi" />
 
             <TextView
                 android:id="@+id/textView10"
@@ -82,48 +64,12 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="140dp"
                 android:layout_weight="1"
-                android:text="Thêm Nghệ Sĩ"
+                android:text="Fav Song"
                 android:textColor="@color/white"
                 android:textSize="20dp" />
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="225dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="114dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnTaoplaylist"
-                    android:layout_width="200dp"
-                    android:layout_height="100dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/custom_themnghesi"
-                    android:drawableLeft="@drawable/icon_taolist" />
-
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="237dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-
-                    android:layout_marginRight="140dp"
-                    android:layout_weight="1"
-                    android:text="Tạo Playlist"
-                    android:textColor="@color/white"
-                    android:textSize="20dp" />
-
-            </LinearLayout>
-
         </LinearLayout>
-
-    </LinearLayout>
-
 
 </RelativeLayout>

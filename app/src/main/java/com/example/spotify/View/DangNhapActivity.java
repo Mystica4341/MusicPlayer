@@ -37,16 +37,14 @@ public class DangNhapActivity extends AppCompatActivity {
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentCon3 = new Intent(DangNhapActivity.this, MainActivity.class);
-                startActivity(intentCon3);
-//                if (control.checkTaiKhoan(String.valueOf(edtTK.getText()), String.valueOf(edtMK.getText()))) {
-//                    Intent intentCon3 = new Intent(DangNhapActivity.this, MainActivity.class);
-//                    startActivity(intentCon3);
-//                } else{
-//                    Toast.makeText(DangNhapActivity.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
-//                    edtTK.setText("");
-//                    edtMK.setText("");
-//                }
+                if (control.checkTaiKhoan(String.valueOf(edtTK.getText()), String.valueOf(edtMK.getText()))) {
+                    Intent intentCon3 = new Intent(DangNhapActivity.this, MainActivity.class);
+                    startActivity(intentCon3);
+                } else{
+                    Toast.makeText(DangNhapActivity.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
+                    edtTK.setText("");
+                    edtMK.setText("");
+                }
             }
         });
         btnDangKy.setOnClickListener(new View.OnClickListener() {

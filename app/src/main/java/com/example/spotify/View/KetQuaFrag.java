@@ -121,7 +121,7 @@ public class KetQuaFrag extends Fragment {
                 customaAdapterMusic = new CustomaAdapterMusic(requireContext(), R.layout.custom_music_item, lsMusicKetQua);
                 lvPlaylist.setAdapter(customaAdapterMusic);
             }
-        },500);
+        },1000);
 
     }
 }

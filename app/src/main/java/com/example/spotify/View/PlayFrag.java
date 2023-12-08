@@ -42,7 +42,7 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class PlayFrag extends Fragment {
-
+    String outputWrite;
     TextView tvName, tvTenArtist, tvDurationEnd;
 
     Button btnTim, btnPause_Play, btnV_play;
@@ -132,7 +132,7 @@ public class PlayFrag extends Fragment {
         btnTim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                writeDSNV();
+                saveLovedSong();
             }
         });
     }
@@ -156,16 +156,17 @@ public class PlayFrag extends Fragment {
             tvDurationEnd.setText(duration);
             tvTenArtist.setText(play.getArtist());
             mediaPlayer = MediaPlayer.create(requireContext(),play.getMusicURL());
+            outputWrite = play.getId() + " --- " + play.getName() + " --- " + play.getArtist() + " --- " + play.getDuration() + " --- " + play.getMusicURL() + "\n";
         }
     }
 
-    public void writeDSNV()
+    public void saveLovedSong()
     {
         try {
             OutputStream outputStream= getContext().openFileOutput("yeuthich.txt", Context.MODE_APPEND);
-            
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            outputStream.write(outputWrite.getBytes());
+            outputStream.flush();
+            outputStream.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
