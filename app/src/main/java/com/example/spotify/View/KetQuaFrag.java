@@ -1,17 +1,23 @@
 package com.example.spotify.View;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.spotify.Control.CustomaAdapterMusic;
 import com.example.spotify.Control.PlaylistControl;
+import com.example.spotify.Control.SearchControl;
 import com.example.spotify.Model.Music;
 import com.example.spotify.Model.Play;
 import com.example.spotify.R;
@@ -30,7 +36,7 @@ import java.util.List;
  */
 public class KetQuaFrag extends Fragment {
 
-    public ArrayList<Music> lsMusic = new ArrayList<>();
+    public static ArrayList<Music> lsMusicKetQua;
 
     ListView lvPlaylist;
 
@@ -82,15 +88,7 @@ public class KetQuaFrag extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_ketqua, container, false);
         addControl(view);
-
-        try {
-            addEvent(view);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
+        addEvent();
         return view;
     }
 
@@ -98,25 +96,32 @@ public class KetQuaFrag extends Fragment {
         lvPlaylist = (ListView) view.findViewById(R.id.lvPlaylist);
     }
 
-    public void addEvent(View view) throws JSONException, IOException {
-        getData("List.json", "playlist2");
-        customaAdapterMusic = new CustomaAdapterMusic(view.getContext(), R.layout.custom_music_item, lsMusic);
-        lvPlaylist.setAdapter(customaAdapterMusic);
-    }
-
-    public ArrayList<Music> getData(String url, String keyword) throws IOException, JSONException {
-        InputStream inputStream = getResources().getAssets().open(url);
-        int size = inputStream.available();
-        byte[] data = new byte[size];
-        inputStream.read(data);
-        inputStream.close();
-        String kqDoc = new String(data, "UTF-8");
-        PlaylistControl plc = new PlaylistControl();
-        lsMusic = plc.parseData(kqDoc, keyword);
-        return lsMusic;
-    }
-
-    public void writeData(){
+    public void addEvent(){
+        lvPlaylist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ArrayList<Play> arrayListPlay = new ArrayList<>();
+                Play play = new Play();
+                play.setId(lsMusicKetQua.get(position).getId());
+                play.setName(lsMusicKetQua.get(position).getName());
+                play.setArtist(lsMusicKetQua.get(position).getArtistName());
+                play.setDuration(lsMusicKetQua.get(position).getDuration());
+                play.setMusicURL(lsMusicKetQua.get(position).getMusicURL());
+                PlayFrag playFrag = new PlayFrag();
+                arrayListPlay.add(play);
+                PlayFrag.arrayListPlay = arrayListPlay;
+                FragmentManager fm = getParentFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.FrameFrag, playFrag).commit();
+            }
+        });
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                customaAdapterMusic = new CustomaAdapterMusic(requireContext(), R.layout.custom_music_item, lsMusicKetQua);
+                lvPlaylist.setAdapter(customaAdapterMusic);
+            }
+        },500);
 
     }
 }

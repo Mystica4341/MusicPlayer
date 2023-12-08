@@ -1,6 +1,9 @@
 package com.example.spotify.View;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -11,7 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +27,13 @@ import com.example.spotify.Model.Music;
 import com.example.spotify.Model.Play;
 import com.example.spotify.R;
 
+import org.xmlpull.v1.XmlSerializer;
+
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.StringWriter;
 import java.util.ArrayList;
 
 /**
@@ -33,7 +45,7 @@ public class PlayFrag extends Fragment {
 
     TextView tvName, tvTenArtist, tvDurationEnd;
 
-    Button btnTim, btnPause_Play;
+    Button btnTim, btnPause_Play, btnV_play;
     MediaPlayer mediaPlayer = new MediaPlayer();
     public static ArrayList<Play> arrayListPlay;
 
@@ -108,6 +120,21 @@ public class PlayFrag extends Fragment {
 
             }
         });
+        btnV_play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HomeFrag homeFrag = new HomeFrag();
+                FragmentManager fm = getParentFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.FrameFrag, homeFrag).commit();
+            }
+        });
+        btnTim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                writeDSNV();
+            }
+        });
     }
     public void addControl(View view){
         tvName = (TextView) view.findViewById(R.id.tvSongName);
@@ -115,16 +142,32 @@ public class PlayFrag extends Fragment {
         tvDurationEnd = (TextView) view.findViewById(R.id.tvDurationEnd);
         btnTim = (Button) view.findViewById(R.id.btnTim_play);
         btnPause_Play = (Button)view.findViewById(R.id.btnPause_play);
+        btnV_play = (Button) view.findViewById(R.id.btnV_play);
     }
     public void initData(){
         for(Play play: arrayListPlay){
             tvName.setText(play.getName());
+            String duration = "";
             int phut = play.getDuration()/60;
             int giay = play.getDuration()%60;
-            String duration = phut + ":" + giay;
+            if (giay < 10) {
+                duration = phut + ":0" + giay;
+            }else duration = phut + ":" + giay;
             tvDurationEnd.setText(duration);
             tvTenArtist.setText(play.getArtist());
             mediaPlayer = MediaPlayer.create(requireContext(),play.getMusicURL());
+        }
+    }
+
+    public void writeDSNV()
+    {
+        try {
+            OutputStream outputStream= getContext().openFileOutput("yeuthich.txt", Context.MODE_APPEND);
+            
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

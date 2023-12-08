@@ -46,7 +46,9 @@ public class CustomaAdapterMusic extends ArrayAdapter {
             int thoiluong = m.getDuration();
             int phut = thoiluong/60;
             int giay = thoiluong%60;
-            duration = phut + ":" + giay;
+            if (giay < 10)
+                duration = phut + ":0" + giay;
+            else duration = phut + ":" + giay;
         }
         TextView tvDur = (TextView) convertView.findViewById(R.id.tvDur);
         tvDur.setText(duration);
