@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -18,11 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.spotify.Control.CustomaAdapterMusic;
 import com.example.spotify.Control.MusicControl;
 import com.example.spotify.Control.SearchControl;
@@ -30,6 +26,7 @@ import com.example.spotify.Model.Music;
 import com.example.spotify.R;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,7 +40,7 @@ public class TimKiemFrag extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    String url = "https://api.deezer.com/search?q=";
+    String searchUrl = "https://api.deezer.com/search?q=";
     EditText edtTim;
     ArrayList<Music> lsMusic = new ArrayList<>();
     RecyclerView SearchView;
@@ -96,11 +93,11 @@ public class TimKiemFrag extends Fragment {
         edtTim = (EditText) view.findViewById(R.id.edtTimkiem);
         lnImage = (LinearLayout) view.findViewById(R.id.linearImage);
         lvMusic = (ListView) view.findViewById(R.id.lvMusic);
-        addEvent(view.getContext(), view);
+        addEvent();
         return view;
     }
 
-    public void addEvent(Context context, View view){
+    public void addEvent(){
         edtTim.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -109,21 +106,24 @@ public class TimKiemFrag extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence keyword, int start, int before, int count) {
-                url += keyword.toString();
-                SearchControl control = new SearchControl();
-                lsMusic = control.connectAPI(url, context);
                 ViewGroup.LayoutParams lnParam = lnImage.getLayoutParams();
                 lnParam.height = 0;
                 lnImage.setLayoutParams(lnParam);
-                customaAdapterMusic = new CustomaAdapterMusic(view.getContext(), R.layout.custom_music_item, lsMusic);
-                lvMusic.setAdapter(customaAdapterMusic);
-
-
+                String url = searchUrl + keyword.toString();
+                SearchControl control = new SearchControl();
+                lsMusic = control.getData(getContext(),url);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        customaAdapterMusic = new CustomaAdapterMusic(requireContext(), R.layout.custom_music_item, lsMusic);
+                        lvMusic.setAdapter(customaAdapterMusic);
+                        lsMusic = new ArrayList<>();
+                    }
+                },100);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
     }

@@ -36,24 +36,24 @@
             android:textColor="@color/black"
             android:hint=" Bạn muốn nghe gì ?" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:textStyle="bold"
-            android:layout_height="51dp"
-            android:layout_marginTop="20dp"
-            android:text="Duyệt tìm tất cả"
-
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/white"
-            android:textSize="28dp" />
-
         <LinearLayout
             android:id="@+id/linearImage"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="51dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:text="Duyệt tìm tất cả"
+
+                android:textColor="@color/white"
+                android:textSize="28dp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -99,6 +99,7 @@
 
         <ListView
             android:id="@+id/lvMusic"
+            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

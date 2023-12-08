@@ -39,7 +39,7 @@
 
 
             <EditText
-                android:id="@+id/editTextUser"
+                android:id="@+id/edtTaiKhoan"
                 android:layout_width="365dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
@@ -56,7 +56,7 @@
 
 
             <EditText
-                android:id="@+id/editTextMK"
+                android:id="@+id/edtMatKhau"
                 android:layout_width="365dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"

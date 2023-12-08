@@ -10,13 +10,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.spotify.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -53,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(new TimKiemFrag());
                     return true;
                 } else if (id == R.id.nav_profile) {
-                    loadFragment(new ProfileFrag());
+                    loadFragment(new KetQuaFrag());
                     return true;
                 } else if (id == R.id.nav_playlist) {
                     loadFragment(new ThuVienFrag());

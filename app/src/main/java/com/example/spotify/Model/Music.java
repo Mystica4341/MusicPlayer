@@ -1,7 +1,16 @@
 package com.example.spotify.Model;
 
 public class Music {
-    String id, images, name, type, artistName, duration;
+    String id, images, name, type, artistName, musicURL;
+    int duration;
+
+    public String getMusicURL() {
+        return musicURL;
+    }
+
+    public void setMusicURL(String musicURL) {
+        this.musicURL = musicURL;
+    }
 
     public String getId() {
         return id;
@@ -43,21 +52,22 @@ public class Music {
         this.artistName = artistName;
     }
 
-    public String getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
-    public Music(String id, String images, String name, String type, String artistName, String duration) {
+    public Music(String id, String images, String name, String type, String artistName, String musicURL, int duration) {
         this.id = id;
         this.images = images;
         this.name = name;
         this.type = type;
         this.artistName = artistName;
         this.duration = duration;
+        this.musicURL = musicURL;
     }
 
     public Music(){

@@ -21,7 +21,7 @@ public class CustomaAdapterMusic extends ArrayAdapter {
 
     int layoutItem;
 
-    ArrayList<Music> lsMusic = new ArrayList<>();
+    ArrayList<Music> lsMusic;
     public CustomaAdapterMusic(@NonNull Context context, int resource, ArrayList<Music> data) {
         super(context, resource, data);
         this.context = context;
@@ -41,9 +41,15 @@ public class CustomaAdapterMusic extends ArrayAdapter {
 
         TextView tvArist = (TextView) convertView.findViewById(R.id.tvArtist);
         tvArist.setText(m.getArtistName());
-
+        String duration = "";
+        if(m.getDuration() > 60){
+            int thoiluong = m.getDuration();
+            int phut = thoiluong/60;
+            int giay = thoiluong%60;
+            duration = phut + ":" + giay;
+        }
         TextView tvDur = (TextView) convertView.findViewById(R.id.tvDur);
-        tvDur.setText(m.getDuration());
+        tvDur.setText(duration);
 
         return convertView;
     }

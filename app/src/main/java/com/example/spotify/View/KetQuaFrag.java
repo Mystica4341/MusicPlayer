@@ -12,10 +12,10 @@ import com.example.spotify.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFrag#newInstance} factory method to
+ * Use the {@link KetQuaFrag#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileFrag extends Fragment {
+public class KetQuaFrag extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class ProfileFrag extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ProfileFrag() {
+    public KetQuaFrag() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class ProfileFrag extends Fragment {
      * @return A new instance of fragment ProfileFrag.
      */
     // TODO: Rename and change types and number of parameters
-    public static ProfileFrag newInstance(String param1, String param2) {
-        ProfileFrag fragment = new ProfileFrag();
+    public static KetQuaFrag newInstance(String param1, String param2) {
+        KetQuaFrag fragment = new KetQuaFrag();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class ProfileFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return inflater.inflate(R.layout.fragment_ketqua, container, false);
     }
 }
