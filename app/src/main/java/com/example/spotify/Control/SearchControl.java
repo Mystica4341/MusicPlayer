@@ -2,6 +2,7 @@ package com.example.spotify.Control;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -63,7 +64,7 @@ public class SearchControl {
                     m.setId(subObj1.getString("id"));
                     m.setName(subObj1.getString("title"));
                     m.setDuration(subObj1.getInt("duration"));
-                    m.setMusicURL(subObj1.getString("link"));
+                    m.setMusicURL(Uri.parse(subObj1.getString("preview")));
                     if (subObj1.has("artist")) {
                         JSONObject subObj2 = subObj1.getJSONObject("artist");
                         m.setArtistName(subObj2.getString("name"));

@@ -1,8 +1,5 @@
 package com.example.spotify.View;
 
-import android.content.Context;
-import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,19 +15,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.spotify.Control.CustomaAdapterMusic;
-import com.example.spotify.Control.MusicControl;
 import com.example.spotify.Control.SearchControl;
 import com.example.spotify.Model.Music;
+import com.example.spotify.Model.Play;
 import com.example.spotify.R;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -105,19 +99,19 @@ public class TimKiemFrag extends Fragment {
         lvMusic.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bundle bundle = new Bundle();
-                bundle.putString("idSong", lsMusic.get(position).getId());
-                bundle.putString("nameSong", lsMusic.get(position).getName());
-                bundle.putString("artist", lsMusic.get(position).getArtistName());
-                bundle.putInt("dur", lsMusic.get(position).getDuration());
+                ArrayList<Play> arrayListPlay = new ArrayList<>();
+                Play play = new Play();
+                play.setId(lsMusic.get(position).getId());
+                play.setName(lsMusic.get(position).getName());
+                play.setArtist(lsMusic.get(position).getArtistName());
+                play.setDuration(lsMusic.get(position).getDuration());
+                play.setMusicURL(lsMusic.get(position).getMusicURL());
+                PlayFrag playFrag = new PlayFrag();
+                arrayListPlay.add(play);
+                PlayFrag.arrayListPlay = arrayListPlay;
                 FragmentManager fm = getParentFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
-                fm.setFragmentResult("keyMain", bundle);
-                PlayFrag playFrag = new PlayFrag();
                 ft.replace(R.id.FrameFrag, playFrag).commit();
-
-
-
             }
         });
         edtTim.addTextChangedListener(new TextWatcher() {
@@ -139,7 +133,6 @@ public class TimKiemFrag extends Fragment {
                     public void run() {
                         customaAdapterMusic = new CustomaAdapterMusic(requireContext(), R.layout.custom_music_item, lsMusic);
                         lvMusic.setAdapter(customaAdapterMusic);
-//                        lsMusic = new ArrayList<>();
                     }
                 },100);
             }

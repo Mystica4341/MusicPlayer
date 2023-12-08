@@ -1,5 +1,10 @@
 package com.example.spotify.View;
 
+import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,7 +19,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.spotify.Model.Music;
+import com.example.spotify.Model.Play;
 import com.example.spotify.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,11 +33,9 @@ public class PlayFrag extends Fragment {
 
     TextView tvName, tvTenArtist, tvDurationEnd;
 
-    Button btnTim;
-
-    String id, name, artist;
-
-    int duration;
+    Button btnTim, btnPause_Play;
+    MediaPlayer mediaPlayer = new MediaPlayer();
+    public static ArrayList<Play> arrayListPlay;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -69,7 +75,6 @@ public class PlayFrag extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        addEvent();
     }
 
     @Override
@@ -77,29 +82,49 @@ public class PlayFrag extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_play, container, false);
-        tvName = (TextView) view.findViewById(R.id.tvTenBaiHat);
-        tvTenArtist = (TextView) view.findViewById(R.id.tvArtistName);
-        tvDurationEnd = (TextView) view.findViewById(R.id.tvDurationEnd);
-        btnTim = (Button) view.findViewById(R.id.btnTim_play);
-
+        addControl(view);
+        addEvent();
         return view;
 
     }
 
     public void addEvent(){
-        FragmentManager fm = getChildFragmentManager();
-        fm.setFragmentResultListener("keyMain", this, new FragmentResultListener() {
+        initData();
+        btnPause_Play.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("UseCompatLoadingForDrawables")
             @Override
-            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                Music m = new Music();
-                id = result.getString("idSong");
-                name = result.getString("nameSong");
-                artist = result.getString("artist");
-                duration = Integer.parseInt(result.getString("dur"));
-                tvName.setText(name);
-                tvDurationEnd.setText(duration);
-                tvTenArtist.setText(artist);
+            public void onClick(View view) {
+                Drawable[] compoundDraw = btnPause_Play.getCompoundDrawables();
+                Bitmap leftCompound = ((BitmapDrawable)compoundDraw[0]).getBitmap();
+                Bitmap checkImg = ((BitmapDrawable) requireActivity().getDrawable(R.drawable.play)).getBitmap();
+                if(leftCompound == checkImg){
+                    btnPause_Play.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pause,0,0,0);
+                    mediaPlayer.start();
+                }
+                else{
+                    btnPause_Play.setCompoundDrawablesWithIntrinsicBounds(R.drawable.play,0,0,0);
+                    mediaPlayer.pause();
+                }
+
             }
         });
+    }
+    public void addControl(View view){
+        tvName = (TextView) view.findViewById(R.id.tvSongName);
+        tvTenArtist = (TextView) view.findViewById(R.id.tvArtistName);
+        tvDurationEnd = (TextView) view.findViewById(R.id.tvDurationEnd);
+        btnTim = (Button) view.findViewById(R.id.btnTim_play);
+        btnPause_Play = (Button)view.findViewById(R.id.btnPause_play);
+    }
+    public void initData(){
+        for(Play play: arrayListPlay){
+            tvName.setText(play.getName());
+            int phut = play.getDuration()/60;
+            int giay = play.getDuration()%60;
+            String duration = phut + ":" + giay;
+            tvDurationEnd.setText(duration);
+            tvTenArtist.setText(play.getArtist());
+            mediaPlayer = MediaPlayer.create(requireContext(),play.getMusicURL());
+        }
     }
 }

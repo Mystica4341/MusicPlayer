@@ -2,6 +2,7 @@ package com.example.spotify.Control;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.net.Uri;
 
 import com.example.spotify.Model.Artist;
 import com.example.spotify.Model.Music;
@@ -28,7 +29,7 @@ public class PlaylistControl {
             m.setName(object.getString("name"));
             m.setArtistName(object.getString("artist"));
             m.setDuration(object.getInt("duration"));
-            m.setMusicURL(object.getString("musicURL"));
+            m.setMusicURL(Uri.parse(object.getString("musicURL")));
             lsMusic.add(m);
         }
         return lsMusic;

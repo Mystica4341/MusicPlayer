@@ -61,7 +61,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvTenBaiHat"
+                    android:id="@+id/tvSongName"
                     android:layout_width="350dp"
                     android:gravity="center"
                     android:layout_height="wrap_content"
@@ -145,7 +145,7 @@
                 android:layout_width="90dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/tanghinh"
-                android:drawableLeft="@drawable/pause" />
+                android:drawableLeft="@drawable/play" />
 
             <Button
                 android:id="@+id/btnnext_play"

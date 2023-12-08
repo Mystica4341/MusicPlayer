@@ -13,6 +13,7 @@ import android.widget.ListView;
 import com.example.spotify.Control.CustomaAdapterMusic;
 import com.example.spotify.Control.PlaylistControl;
 import com.example.spotify.Model.Music;
+import com.example.spotify.Model.Play;
 import com.example.spotify.R;
 
 import org.json.JSONException;

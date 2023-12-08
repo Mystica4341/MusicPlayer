@@ -1,14 +1,17 @@
 package com.example.spotify.Model;
 
+import android.net.Uri;
+
 public class Music {
-    String id, images, name, type, artistName, musicURL;
+    String id, images, name, type, artistName;
+    Uri musicURL;
     int duration;
 
-    public String getMusicURL() {
+    public Uri getMusicURL() {
         return musicURL;
     }
 
-    public void setMusicURL(String musicURL) {
+    public void setMusicURL(Uri musicURL) {
         this.musicURL = musicURL;
     }
 
@@ -60,7 +63,7 @@ public class Music {
         this.duration = duration;
     }
 
-    public Music(String id, String images, String name, String type, String artistName, String musicURL, int duration) {
+    public Music(String id, String images, String name, String type, String artistName, Uri musicURL, int duration) {
         this.id = id;
         this.images = images;
         this.name = name;
