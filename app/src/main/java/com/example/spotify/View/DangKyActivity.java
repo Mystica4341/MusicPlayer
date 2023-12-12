@@ -41,7 +41,7 @@ public class DangKyActivity extends AppCompatActivity {
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (String.valueOf(edtTK.getText()).length() >= 8 && String.valueOf(edtTK.getText()).length() <=16) {
+                if (String.valueOf(edtTK.getText()).length() >= 4 && String.valueOf(edtTK.getText()).length() <=16) {
                     accountControl= new AccountControl(getApplicationContext(), AccountControl.DATABASE_NAME, null, 1);
                     accountControl.insertData(String.valueOf(edtTK.getText()), String.valueOf(edtMK.getText()));
                     Toast.makeText(DangKyActivity.this, "Register Success", Toast.LENGTH_SHORT).show();
@@ -54,7 +54,7 @@ public class DangKyActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
                     },2000);
-                }else if (String.valueOf(edtMK.getText()).length() <= 8)
+                }else if (String.valueOf(edtMK.getText()).length() <= 6)
                     Toast.makeText(DangKyActivity.this, "Mật khẩu quá ngắn", Toast.LENGTH_SHORT).show();
                 else if (String.valueOf(edtMK.getText()).length() >= 16)
                     Toast.makeText(DangKyActivity.this, "Mật khẩu quá dài", Toast.LENGTH_SHORT).show();
