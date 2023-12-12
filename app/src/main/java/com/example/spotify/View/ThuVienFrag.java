@@ -1,5 +1,6 @@
 package com.example.spotify.View;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.example.spotify.Control.LovedSongControl;
+import com.example.spotify.Model.LovedSong;
 import com.example.spotify.Model.Music;
 import com.example.spotify.R;
 
@@ -25,6 +28,9 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class ThuVienFrag extends Fragment {
+    SQLiteDatabase db;
+    LovedSongControl lovedSongControl;
+    ArrayList<LovedSong> lstLovedSong = new ArrayList<>();
     ArrayList<Music> lstMusic = new ArrayList<>();
     LinearLayout lnFavSong;
     // TODO: Rename parameter arguments, choose names that match
@@ -77,26 +83,17 @@ public class ThuVienFrag extends Fragment {
         return view;
     }
     public void readLovedSong(){
-        try {
-            InputStream inputStream= getContext().openFileInput("yeuthich.txt");
-            int size = inputStream.available();
-            byte[] buffer = new byte[size];
-            inputStream.read(buffer);
-            inputStream.close();
-            String inputText = new String(buffer);
-            String[] inputText1 = inputText.split("\n");
-            for(String str: inputText1){
-                String[] inputText2 = str.split(" --- ");
-                Music m = new Music();
-                m.setName(inputText2[1]);
-                m.setArtistName(inputText2[2]);
-                m.setDuration(Integer.parseInt(inputText2[3]));
-                m.setId(inputText2[0]);
-                m.setMusicURL(Uri.parse(inputText2[4]));
-                lstMusic.add(m);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        lovedSongControl = new LovedSongControl(getContext(),LovedSongControl.DATABASE_NAME,null,1);
+        lstLovedSong = lovedSongControl.loadData();
+        for (LovedSong lS : lstLovedSong){
+            Music m = new Music();
+            m.setId(lS.getId());
+            m.setName(lS.getName());
+            m.setDuration(30);
+            m.setMusicURL(lS.getMusicURL());
+            m.setArtistName(lS.getArtist());
+            m.setImages(lS.getImage());
+            lstMusic.add(m);
         }
     }
     public void addControl(View view){

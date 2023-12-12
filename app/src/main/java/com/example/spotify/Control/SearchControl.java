@@ -75,7 +75,6 @@ public class SearchControl {
                         JSONObject subObj2 = subObj1.getJSONObject("album");
                         m.setImages(Uri.parse(subObj2.getString("cover")));
                     }
-                    m.setType(subObj1.getString("type"));
                     lsMusic.add(m);
                 }
             }

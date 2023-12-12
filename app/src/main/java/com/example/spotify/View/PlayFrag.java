@@ -3,6 +3,7 @@ package com.example.spotify.View;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -21,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.example.spotify.Control.LovedSongControl;
+import com.example.spotify.Model.LovedSong;
 import com.example.spotify.Model.Play;
 import com.example.spotify.R;
 import com.squareup.picasso.Picasso;
@@ -37,11 +40,12 @@ import java.util.TimerTask;
  * create an instance of this fragment.
  */
 public class PlayFrag extends Fragment {
-    String outputWrite;
+    SQLiteDatabase db;
     TextView tvName, tvTenArtist, tvDurationEnd, tvDurationStart;
     SeekBar seekBarPlay;
     Button btnTim, btnPause_Play, btnV_play;
     ImageView imgMusicPlay;
+    LovedSongControl lovedSongControl;
     MediaPlayer mediaPlayer = new MediaPlayer();
     public static ArrayList<Play> arrayListPlay;
 
@@ -165,7 +169,9 @@ public class PlayFrag extends Fragment {
         btnTim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveLovedSong();
+                 lovedSongControl = new LovedSongControl(getContext(),LovedSongControl.DATABASE_NAME,null,1);
+                 for (Play play: arrayListPlay)
+                    lovedSongControl.insertData(play.getId(),play.getName(), play.getDuration(), play.getArtist(),play.getMusicURL(),play.getImage());
             }
         });
     }
@@ -193,19 +199,6 @@ public class PlayFrag extends Fragment {
             tvTenArtist.setText(play.getArtist());
             mediaPlayer = MediaPlayer.create(requireContext(),play.getMusicURL());
             Picasso.get().load(play.getImage()).resize(340,340).into(imgMusicPlay);
-            outputWrite = play.getId() + " --- " + play.getName() + " --- " + play.getArtist() + " --- " + play.getDuration() + " --- " + play.getMusicURL() + "\n";
-        }
-    }
-
-    public void saveLovedSong()
-    {
-        try {
-            OutputStream outputStream= getContext().openFileOutput("yeuthich.txt", Context.MODE_APPEND);
-            outputStream.write(outputWrite.getBytes());
-            outputStream.flush();
-            outputStream.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 }

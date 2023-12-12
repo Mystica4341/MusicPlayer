@@ -3,7 +3,7 @@ package com.example.spotify.Model;
 import android.net.Uri;
 
 public class Music {
-    String id, name, type, artistName;
+    String id, name, artistName;
     Uri musicURL, images;
     int duration;
 
@@ -39,14 +39,6 @@ public class Music {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getArtistName() {
         return artistName;
     }
@@ -63,11 +55,10 @@ public class Music {
         this.duration = duration;
     }
 
-    public Music(String id, Uri images, String name, String type, String artistName, Uri musicURL, int duration) {
+    public Music(String id, Uri images, String name, String artistName, Uri musicURL, int duration) {
         this.id = id;
         this.images = images;
         this.name = name;
-        this.type = type;
         this.artistName = artistName;
         this.duration = duration;
         this.musicURL = musicURL;

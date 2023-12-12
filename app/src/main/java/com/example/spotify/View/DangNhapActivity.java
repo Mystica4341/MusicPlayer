@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.spotify.Control.AccountControl;
+import com.example.spotify.Control.LovedSongControl;
 import com.example.spotify.R;
 
 public class DangNhapActivity extends AppCompatActivity {
@@ -20,6 +21,7 @@ public class DangNhapActivity extends AppCompatActivity {
     TextView tvQuenMK;
     EditText edtTK, edtMK;
     AccountControl control;
+    LovedSongControl lovedSongControl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +40,7 @@ public class DangNhapActivity extends AppCompatActivity {
         edtMK = (EditText)findViewById(R.id.edtMatKhau);
     }
     public void addEvent(){
-        accountActive();
+        dbActive();
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,8 +69,10 @@ public class DangNhapActivity extends AppCompatActivity {
             }
         });
     }
-    public void accountActive(){
+    public void dbActive(){
         control = new AccountControl(getApplicationContext(), AccountControl.DATABASE_NAME, null, 1);
         control.onCreate(db);
+        lovedSongControl = new LovedSongControl(getApplicationContext(),LovedSongControl.DATABASE_NAME,null,1);
+        lovedSongControl.onCreate(db);
     }
 }
