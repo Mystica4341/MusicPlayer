@@ -1,6 +1,5 @@
 package com.example.spotify.View;
 
-import static android.content.Context.MODE_PRIVATE;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,31 +9,27 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.example.spotify.Model.Music;
 import com.example.spotify.Model.Play;
 import com.example.spotify.R;
+import com.squareup.picasso.Picasso;
 
-import org.xmlpull.v1.XmlSerializer;
-
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,9 +38,10 @@ import java.util.ArrayList;
  */
 public class PlayFrag extends Fragment {
     String outputWrite;
-    TextView tvName, tvTenArtist, tvDurationEnd;
-
+    TextView tvName, tvTenArtist, tvDurationEnd, tvDurationStart;
+    SeekBar seekBarPlay;
     Button btnTim, btnPause_Play, btnV_play;
+    ImageView imgMusicPlay;
     MediaPlayer mediaPlayer = new MediaPlayer();
     public static ArrayList<Play> arrayListPlay;
 
@@ -120,6 +116,43 @@ public class PlayFrag extends Fragment {
 
             }
         });
+        seekBarPlay.setMax(mediaPlayer.getDuration());
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                seekBarPlay.setProgress(mediaPlayer.getCurrentPosition());
+            }
+        },0,900);
+        seekBarPlay.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int giaytruoc = 0;
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                mediaPlayer.seekTo(i);
+                int phut = i/970/60;
+                int giay = i/970%60;
+                if (giay < 10)
+                    tvDurationStart.setText(phut + ":0" + giay);
+                else
+                    tvDurationStart.setText(phut + ":" + giay);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                seekBarPlay.setProgress(0);
+                btnPause_Play.setCompoundDrawablesWithIntrinsicBounds(R.drawable.play,0,0,0);
+            }
+        });
         btnV_play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,6 +176,9 @@ public class PlayFrag extends Fragment {
         btnTim = (Button) view.findViewById(R.id.btnTim_play);
         btnPause_Play = (Button)view.findViewById(R.id.btnPause_play);
         btnV_play = (Button) view.findViewById(R.id.btnV_play);
+        imgMusicPlay =(ImageView) view.findViewById(R.id.imgMusicPlay);
+        seekBarPlay = (SeekBar)view.findViewById(R.id.seekBarPlay);
+        tvDurationStart = (TextView)view.findViewById(R.id.tvDurationStart);
     }
     public void initData(){
         for(Play play: arrayListPlay){
@@ -156,6 +192,7 @@ public class PlayFrag extends Fragment {
             tvDurationEnd.setText(duration);
             tvTenArtist.setText(play.getArtist());
             mediaPlayer = MediaPlayer.create(requireContext(),play.getMusicURL());
+            Picasso.get().load(play.getImage()).resize(340,340).into(imgMusicPlay);
             outputWrite = play.getId() + " --- " + play.getName() + " --- " + play.getArtist() + " --- " + play.getDuration() + " --- " + play.getMusicURL() + "\n";
         }
     }

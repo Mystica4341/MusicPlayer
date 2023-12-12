@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.annotation.Nullable;
 
 import com.example.spotify.Model.Music;
 import com.example.spotify.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -42,16 +44,16 @@ public class CustomaAdapterMusic extends ArrayAdapter {
         TextView tvArist = (TextView) convertView.findViewById(R.id.tvArtist);
         tvArist.setText(m.getArtistName());
         String duration = "";
-        if(m.getDuration() > 60){
-            int thoiluong = m.getDuration();
-            int phut = thoiluong/60;
-            int giay = thoiluong%60;
-            if (giay < 10)
-                duration = phut + ":0" + giay;
-            else duration = phut + ":" + giay;
-        }
+        int thoiluong = m.getDuration();
+        int phut = thoiluong/60;
+        int giay = thoiluong%60;
+        if (giay < 10)
+            duration = phut + ":0" + giay;
+        else duration = phut + ":" + giay;
         TextView tvDur = (TextView) convertView.findViewById(R.id.tvDur);
         tvDur.setText(duration);
+        ImageView imgMusic = (ImageView)convertView.findViewById(R.id.imgMusic);
+        Picasso.get().load(m.getImages()).resize(64,64).into(imgMusic);
 
         return convertView;
     }

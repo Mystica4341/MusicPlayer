@@ -1,7 +1,13 @@
 package com.example.spotify.Control;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import androidx.annotation.Nullable;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -14,56 +20,67 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class AccountControl {
-    ArrayList<Account> lsAccount = new ArrayList<>();
+public class AccountControl extends SQLiteOpenHelper {
+    public static final String DATABASE_NAME = "projectandroid";
+    private static final int DATABASE_VERSION = 1;
+    @SuppressLint("SdCardPath")
+    public static final String PATH = "/data/data/com.example.spotify/database/projectandroid.db";
+    public static final String TABLE_NAME = "TaiKhoan";
+    public static String IDTAIKHOAN = "id";
+    private static final String TAIKHOAN = "taikhoan";
+    private static final String MATKHAU = "matkhau";
 
-    public void connectAPI(Context context) {
-        String url = "http://192.168.1.2/taikhoan.json";
-        StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    parseData(response);
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        });
-        RequestQueue queue = Volley.newRequestQueue(context);
-        queue.add(stringRequest);
+    public AccountControl(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
 
-    @SuppressLint("SuspiciousIndentation")
-    public void parseData(String string) throws JSONException {
-        JSONObject object = new JSONObject(string);
-        for (int i = 0; i < object.length(); i++) {
-            if (object.has("data")) {
-                JSONArray jsonArray = object.getJSONArray("data");
-                for (int y = 0; y < jsonArray.length(); y++) {
-                    Account a = new Account();
-                    JSONObject subObj1 = jsonArray.getJSONObject(y);
-                    a.setId(subObj1.getString("id"));
-                    a.setTaiKhoan(subObj1.getString("taikhoan"));
-                    a.setMatKhau(subObj1.getString("matkhau"));
-                    lsAccount.add(a);
-                }
-            }
-        }
-    }
     public boolean checkTaiKhoan(String taikhoan, String matkhau){
-        for(Account a: lsAccount){
-            if(taikhoan.equals(a.getTaiKhoan()) && matkhau.equals(a.getMatKhau()))
+        ArrayList<Account> lsAccount = loadData();
+        for (Account a : lsAccount) {
+            if (taikhoan.equals(a.getTaiKhoan()) && matkhau.equals(a.getMatKhau()))
                 return true;
             else
-                return false;
+                continue;
         }
         return false;
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db = SQLiteDatabase.openDatabase(PATH, null, SQLiteDatabase.CREATE_IF_NECESSARY);
+        String sql = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(" + IDTAIKHOAN + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL UNIQUE," + TAIKHOAN + " TEXT NOT NULL," + MATKHAU + " TEXT NOT NULL)";
+        db.execSQL(sql);
+        db.close();
+    }
+    public void insertData(String taiKhoan, String matKhau) {
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(PATH, null, SQLiteDatabase.OPEN_READWRITE);
+        ContentValues value = new ContentValues();
+        value.put(TAIKHOAN, taiKhoan);
+        value.put(MATKHAU, matKhau);
+        db.insert(TABLE_NAME, null, value);
+        db.close();
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+
+    }
+    public ArrayList<Account> loadData() {
+        ArrayList<Account> result = new ArrayList<>();
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(PATH, null, SQLiteDatabase.CREATE_IF_NECESSARY);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        cursor.moveToFirst();
+        do {
+            Account tk = new Account();
+            tk.setId(cursor.getInt(0));
+            tk.setTaiKhoan(cursor.getString(1));
+            tk.setMatKhau(cursor.getString(2));
+            result.add(tk);
+        } while (cursor.moveToNext());
+        return result;
     }
 }

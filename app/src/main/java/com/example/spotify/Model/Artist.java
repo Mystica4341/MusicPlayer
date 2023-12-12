@@ -1,7 +1,7 @@
 package com.example.spotify.Model;
 
 public class Artist {
-    String id, name;
+    String id, name, image;
 
     public Artist() {
     }

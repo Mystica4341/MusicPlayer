@@ -84,13 +84,13 @@
             android:layout_height="wrap_content"
             android:paddingLeft="30dp"
             android:paddingBottom="10dp"
-            android:text="Tên Tài Khoản"
+            android:text="Tài khoản"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/edtTenTK_dangky"
+            android:id="@+id/edtTaiKhoan_DK"
             android:layout_width="350dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
@@ -104,25 +104,25 @@
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Địa chỉ email"
+            android:text="Mât khẩu"
             android:paddingBottom="10dp"
             android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="@color/white"
             android:paddingLeft="30dp"/>
         <EditText
-            android:id="@+id/edtEmail_dangky"
+            android:id="@+id/edtMatKhau_DK"
             android:layout_width="350dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
             android:layout_marginBottom="30dp"
             android:background="@drawable/custom_listview"
             app:cornerRadius="5dp"
-            android:hint="name@domain.com"
+            android:inputType="textPassword"
             android:paddingLeft="10dp" />
 
         <Button
-            android:id="@+id/btnTiepTheo_dangky"
+            android:id="@+id/btnDangKy"
             android:layout_width="300dp"
             android:layout_height="55dp"
             android:layout_gravity="center"
@@ -130,6 +130,6 @@
             android:textStyle="bold"
             android:textSize="20dp"
             android:backgroundTint="#1ED660"
-            android:text="Tiếp theo" />
+            android:text="Đăng Ký" />
     </LinearLayout>
 </RelativeLayout>

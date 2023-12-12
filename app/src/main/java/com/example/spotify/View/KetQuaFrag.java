@@ -107,6 +107,7 @@ public class KetQuaFrag extends Fragment {
                 play.setArtist(lsMusicKetQua.get(position).getArtistName());
                 play.setDuration(lsMusicKetQua.get(position).getDuration());
                 play.setMusicURL(lsMusicKetQua.get(position).getMusicURL());
+                play.setImage(lsMusicKetQua.get(position).getImages());
                 PlayFrag playFrag = new PlayFrag();
                 arrayListPlay.add(play);
                 PlayFrag.arrayListPlay = arrayListPlay;

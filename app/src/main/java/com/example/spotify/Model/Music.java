@@ -3,8 +3,8 @@ package com.example.spotify.Model;
 import android.net.Uri;
 
 public class Music {
-    String id, images, name, type, artistName;
-    Uri musicURL;
+    String id, name, type, artistName;
+    Uri musicURL, images;
     int duration;
 
     public Uri getMusicURL() {
@@ -23,11 +23,11 @@ public class Music {
         this.id = id;
     }
 
-    public String getImages() {
+    public Uri getImages() {
         return images;
     }
 
-    public void setImages(String images) {
+    public void setImages(Uri images) {
         this.images = images;
     }
 
@@ -63,7 +63,7 @@ public class Music {
         this.duration = duration;
     }
 
-    public Music(String id, String images, String name, String type, String artistName, Uri musicURL, int duration) {
+    public Music(String id, Uri images, String name, String type, String artistName, Uri musicURL, int duration) {
         this.id = id;
         this.images = images;
         this.name = name;

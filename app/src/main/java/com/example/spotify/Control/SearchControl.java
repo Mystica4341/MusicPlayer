@@ -63,13 +63,17 @@ public class SearchControl {
                     JSONObject subObj1 = jsonArray.getJSONObject(y);
                     m.setId(subObj1.getString("id"));
                     m.setName(subObj1.getString("title"));
-                    m.setDuration(subObj1.getInt("duration"));
+                    m.setDuration(30);
                     m.setMusicURL(Uri.parse(subObj1.getString("preview")));
                     if (subObj1.has("artist")) {
                         JSONObject subObj2 = subObj1.getJSONObject("artist");
                         m.setArtistName(subObj2.getString("name"));
                         a.setId(subObj2.getString("id"));
                         a.setName(subObj2.getString("name"));
+                    }
+                    if (subObj1.has("album")){
+                        JSONObject subObj2 = subObj1.getJSONObject("album");
+                        m.setImages(Uri.parse(subObj2.getString("cover")));
                     }
                     m.setType(subObj1.getString("type"));
                     lsMusic.add(m);

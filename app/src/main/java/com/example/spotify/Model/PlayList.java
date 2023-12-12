@@ -2,40 +2,23 @@ package com.example.spotify.Model;
 
 import android.net.Uri;
 
-public class Play {
+public class PlayList {
     String id, name, artist;
-    Uri musicURL, image;
 
-    public Uri getImage() {
-        return image;
+    public PlayList() {
     }
 
-    public void setImage(Uri image) {
-        this.image = image;
-    }
-
-    public Uri getMusicURL() {
-        return musicURL;
-    }
-
-    public void setMusicURL(Uri musicURL) {
+    public PlayList(String id, String name, String artist, Uri imageMusic, int duration, Uri musicURL) {
+        this.id = id;
+        this.name = name;
+        this.artist = artist;
+        this.imageMusic = imageMusic;
+        this.duration = duration;
         this.musicURL = musicURL;
-    }
-
-    public Play() {
     }
 
     public String getId() {
         return id;
-    }
-
-    public Play(String id, String name, String artist,Uri musicURL, int duration, Uri image) {
-        this.id = id;
-        this.name = name;
-        this.artist = artist;
-        this.duration = duration;
-        this.musicURL = musicURL;
-        this.image = image;
     }
 
     public void setId(String id) {
@@ -58,6 +41,14 @@ public class Play {
         this.artist = artist;
     }
 
+    public Uri getImageMusic() {
+        return imageMusic;
+    }
+
+    public void setImageMusic(Uri imageMusic) {
+        this.imageMusic = imageMusic;
+    }
+
     public int getDuration() {
         return duration;
     }
@@ -66,5 +57,14 @@ public class Play {
         this.duration = duration;
     }
 
+    public Uri getMusicURL() {
+        return musicURL;
+    }
+
+    public void setMusicURL(Uri musicURL) {
+        this.musicURL = musicURL;
+    }
+
     int duration;
+    Uri musicURL, imageMusic;
 }

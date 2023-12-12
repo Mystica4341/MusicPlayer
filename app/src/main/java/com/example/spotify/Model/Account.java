@@ -1,36 +1,37 @@
 package com.example.spotify.Model;
 
 public class Account {
-    String id, TaiKhoan, MatKhau;
+    String taiKhoan, matKhau;
+    int id;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     public String getTaiKhoan() {
-        return TaiKhoan;
+        return taiKhoan;
     }
 
     public void setTaiKhoan(String taiKhoan) {
-        TaiKhoan = taiKhoan;
+        this.taiKhoan = taiKhoan;
     }
 
     public String getMatKhau() {
-        return MatKhau;
+        return matKhau;
     }
 
     public void setMatKhau(String matKhau) {
-        MatKhau = matKhau;
+        this.matKhau = matKhau;
     }
 
-    public Account(String id, String taiKhoan, String matKhau) {
+    public Account(int id, String taiKhoan, String matKhau) {
         this.id = id;
-        TaiKhoan = taiKhoan;
-        MatKhau = matKhau;
+        this.taiKhoan = taiKhoan;
+        this.matKhau = matKhau;
     }
 
     public Account(){

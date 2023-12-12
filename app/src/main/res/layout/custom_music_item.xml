@@ -3,9 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/imgMusic"
+        android:layout_width="64dp"
+        android:layout_height="64dp" />
+
     <LinearLayout
         android:layout_width="150dp"
-        android:layout_height="80dp"
+        android:layout_height="64dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
