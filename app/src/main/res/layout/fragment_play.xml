@@ -123,7 +123,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="71dp"
+            android:layout_height="70dp"
             android:orientation="horizontal">
 
             <Button
@@ -131,8 +131,7 @@
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/tanghinh"
-                android:drawableLeft="@drawable/tronbai"
-
+                android:drawableLeft="@drawable/playlistsong2"
                 android:text="Button" />
 
             <Button
