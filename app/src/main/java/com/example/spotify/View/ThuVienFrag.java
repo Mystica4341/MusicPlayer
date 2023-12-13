@@ -84,7 +84,11 @@ public class ThuVienFrag extends Fragment {
     }
     public void readLovedSong(){
         lovedSongControl = new LovedSongControl(getContext(),LovedSongControl.DATABASE_NAME,null,1);
-        lstLovedSong = lovedSongControl.loadData();
+        try {
+            lstLovedSong = lovedSongControl.loadData();
+        }catch (IndexOutOfBoundsException e){
+
+        }
         for (LovedSong lS : lstLovedSong){
             Music m = new Music();
             m.setId(lS.getId());

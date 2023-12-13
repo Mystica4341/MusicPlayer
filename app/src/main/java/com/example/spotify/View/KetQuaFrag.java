@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.spotify.Control.CustomaAdapterMusic;
@@ -20,6 +21,7 @@ import com.example.spotify.Control.PlaylistControl;
 import com.example.spotify.Control.SearchControl;
 import com.example.spotify.Model.Music;
 import com.example.spotify.Model.Play;
+import com.example.spotify.Model.PlayList;
 import com.example.spotify.R;
 
 import org.json.JSONException;
@@ -39,6 +41,7 @@ public class KetQuaFrag extends Fragment {
     public static ArrayList<Music> lsMusicKetQua;
 
     ListView lvPlaylist;
+    PlaylistControl playlistControl;
 
     CustomaAdapterMusic customaAdapterMusic;
 
@@ -108,6 +111,8 @@ public class KetQuaFrag extends Fragment {
                 play.setDuration(lsMusicKetQua.get(position).getDuration());
                 play.setMusicURL(lsMusicKetQua.get(position).getMusicURL());
                 play.setImage(lsMusicKetQua.get(position).getImages());
+                playlistControl = new PlaylistControl(requireContext(),PlaylistControl.DATABASE_NAME,null,1);
+                playlistControl.insertData(lsMusicKetQua.get(position).getId(),lsMusicKetQua.get(position).getName(),lsMusicKetQua.get(position).getDuration(),lsMusicKetQua.get(position).getArtistName(),lsMusicKetQua.get(position).getMusicURL(),lsMusicKetQua.get(position).getImages());
                 PlayFrag playFrag = new PlayFrag();
                 arrayListPlay.add(play);
                 PlayFrag.arrayListPlay = arrayListPlay;
@@ -123,6 +128,5 @@ public class KetQuaFrag extends Fragment {
                 lvPlaylist.setAdapter(customaAdapterMusic);
             }
         },1000);
-
     }
 }

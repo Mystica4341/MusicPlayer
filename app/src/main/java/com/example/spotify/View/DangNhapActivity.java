@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.spotify.Control.AccountControl;
 import com.example.spotify.Control.LovedSongControl;
+import com.example.spotify.Control.PlaylistControl;
 import com.example.spotify.R;
 
 public class DangNhapActivity extends AppCompatActivity {
@@ -22,6 +23,7 @@ public class DangNhapActivity extends AppCompatActivity {
     EditText edtTK, edtMK;
     AccountControl control;
     LovedSongControl lovedSongControl;
+    PlaylistControl playlistControl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,5 +76,7 @@ public class DangNhapActivity extends AppCompatActivity {
         control.onCreate(db);
         lovedSongControl = new LovedSongControl(getApplicationContext(),LovedSongControl.DATABASE_NAME,null,1);
         lovedSongControl.onCreate(db);
+        playlistControl = new PlaylistControl(getApplicationContext(),PlaylistControl.DATABASE_NAME,null,1);
+        playlistControl.onCreate(db);
     }
 }

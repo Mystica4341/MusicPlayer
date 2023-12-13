@@ -72,4 +72,10 @@ public class LovedSongControl extends SQLiteOpenHelper {
         } while (cursor.moveToNext());
         return result;
     }
+    public void deleteData(String id) {
+        SQLiteDatabase db = SQLiteDatabase.openDatabase(PATH, null, SQLiteDatabase.OPEN_READWRITE);
+        db.delete(TABLE_NAME, IDSONG + " =?",
+                new String[]{id});
+        db.close();
+    }
 }

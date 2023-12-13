@@ -39,12 +39,11 @@ public class SearchControl {
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
-                Toast.makeText(context,"success", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context,"fail", Toast.LENGTH_SHORT).show();
+
             }
         });
         RequestQueue queue = Volley.newRequestQueue(context);

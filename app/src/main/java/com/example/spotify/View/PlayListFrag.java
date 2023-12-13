@@ -5,53 +5,45 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.example.spotify.Control.CustomAdapterPlayList;
 import com.example.spotify.Control.CustomaAdapterMusic;
-import com.example.spotify.Control.SearchControl;
-import com.example.spotify.Model.Music;
+import com.example.spotify.Control.PlaylistControl;
 import com.example.spotify.Model.Play;
+import com.example.spotify.Model.PlayList;
 import com.example.spotify.R;
 
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link TimKiemFrag#newInstance} factory method to
+ * Use the {@link PlayListFrag#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TimKiemFrag extends Fragment {
+public class PlayListFrag extends Fragment {
+    ListView lvPlaylist;
+    PlaylistControl playlistControl;
+    ArrayList<PlayList> lstPlayList = new ArrayList<>();
+    CustomAdapterPlayList customAdapterPlayList;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    String searchUrl = "https://api.deezer.com/search?q=";
-    EditText edtTim;
-    ArrayList<Music> lsMusic = new ArrayList<>();
-    ListView lvMusic;
-
-    CustomaAdapterMusic customaAdapterMusic;
-
-    LinearLayout lnImage;
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public TimKiemFrag() {
+    public PlayListFrag() {
         // Required empty public constructor
     }
 
@@ -61,11 +53,11 @@ public class TimKiemFrag extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment TimKiemFrag.
+     * @return A new instance of fragment PlayListFrag.
      */
     // TODO: Rename and change types and number of parameters
-    public static TimKiemFrag newInstance(String param1, String param2) {
-        TimKiemFrag fragment = new TimKiemFrag();
+    public static PlayListFrag newInstance(String param1, String param2) {
+        PlayListFrag fragment = new PlayListFrag();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -86,25 +78,29 @@ public class TimKiemFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_tim_kiem, container, false);
-        edtTim = (EditText) view.findViewById(R.id.edtTimkiem);
-        lnImage = (LinearLayout) view.findViewById(R.id.linearImage);
-        lvMusic = (ListView) view.findViewById(R.id.lvMusic);
+        View view = inflater.inflate(R.layout.fragment_play_list, container, false);
+        addControls(view);
         addEvent();
+        customAdapterPlayList = new CustomAdapterPlayList(requireContext(), R.layout.custom_playlist_item, lstPlayList);
+        lvPlaylist.setAdapter(customAdapterPlayList);
         return view;
     }
-
+    public void addControls(View view){
+        lvPlaylist = (ListView) view.findViewById(R.id.lvPlaylist);
+    }
     public void addEvent(){
-        lvMusic.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        initData();
+        lvPlaylist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ArrayList<Play> arrayListPlay = new ArrayList<>();
                 Play play = new Play();
-                play.setId(lsMusic.get(position).getId());
-                play.setName(lsMusic.get(position).getName());
-                play.setArtist(lsMusic.get(position).getArtistName());
-                play.setDuration(lsMusic.get(position).getDuration());
-                play.setMusicURL(lsMusic.get(position).getMusicURL());
+                play.setId(lstPlayList.get(position).getId());
+                play.setName(lstPlayList.get(position).getName());
+                play.setArtist(lstPlayList.get(position).getArtist());
+                play.setDuration(lstPlayList.get(position).getDuration());
+                play.setMusicURL(lstPlayList.get(position).getMusicURL());
+                play.setImage(lstPlayList.get(position).getImageMusic());
                 PlayFrag playFrag = new PlayFrag();
                 arrayListPlay.add(play);
                 PlayFrag.arrayListPlay = arrayListPlay;
@@ -113,33 +109,14 @@ public class TimKiemFrag extends Fragment {
                 ft.replace(R.id.FrameFrag, playFrag).commit();
             }
         });
-        edtTim.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
+    public void initData(){
+        playlistControl = new PlaylistControl(requireContext(),PlaylistControl.DATABASE_NAME,null,1);
+        try {
+            lstPlayList = playlistControl.loadData();
+        }catch (IndexOutOfBoundsException e){
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence keyword, int start, int before, int count) {
-                ViewGroup.LayoutParams lnParam = lnImage.getLayoutParams();
-                lnParam.height = 0;
-                lnImage.setLayoutParams(lnParam);
-                String url = searchUrl + keyword.toString();
-                SearchControl control = new SearchControl();
-                lsMusic = control.getData(getContext(),url);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        customaAdapterMusic = new CustomaAdapterMusic(requireContext(), R.layout.custom_music_item, lsMusic);
-                        lvMusic.setAdapter(customaAdapterMusic);
-                    }
-                },100);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
+        }
 
     }
 }

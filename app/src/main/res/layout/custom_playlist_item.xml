@@ -10,7 +10,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/imgMusic"
+            android:id="@+id/imgMusicPL"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_marginRight="10dp"/>
@@ -22,7 +22,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvName"
+                android:id="@+id/tvNamePL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView"
@@ -31,7 +31,7 @@
                 android:textSize="18dp" />
 
             <TextView
-                android:id="@+id/tvArtist"
+                android:id="@+id/tvArtistPL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="TextView"
@@ -41,15 +41,15 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tvDur"
+            android:id="@+id/tvDurPL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
+            android:paddingRight="15dp"
             android:text="TextView"
             android:textColor="@color/white"
             android:textSize="18dp" />
-
     </LinearLayout>
 
 </LinearLayout>
